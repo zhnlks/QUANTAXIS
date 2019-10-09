@@ -2,7 +2,7 @@
 #
 # The MIT License (MIT)
 #
-# Copyright (c) 2016-2018 yutiansut/QUANTAXIS
+# Copyright (c) 2016-2019 yutiansut/QUANTAXIS
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -54,4 +54,3 @@ class QAError_web_connection(RuntimeError):
 class QAError_market_enging_down(RuntimeError):
     def __init__(self, res):
         RuntimeError.__init__(self, 'QA MARKET ENGING DOWN ERROR', res)
-

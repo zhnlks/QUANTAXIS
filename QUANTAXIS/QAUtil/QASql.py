@@ -2,7 +2,7 @@
 #
 # The MIT License (MIT)
 #
-# Copyright (c) 2016-2018 yutiansut/QUANTAXIS
+# Copyright (c) 2016-2019 yutiansut/QUANTAXIS
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@
 import pymongo
 from motor.motor_asyncio import AsyncIOMotorClient
 from motor import MotorClient
-from QUANTAXIS.QAUtil.QALogs import QA_util_log_info
+import asyncio
 
 
 def QA_util_sql_mongo_setting(uri='mongodb://localhost:27017/quantaxis'):
@@ -47,16 +47,20 @@ def QA_util_sql_async_mongo_setting(uri='mongodb://localhost:27017/quantaxis'):
     Returns:
         [type] -- [description]
     """
+    # loop = asyncio.new_event_loop()
+    # asyncio.set_event_loop(loop)
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
 
-    return AsyncIOMotorClient(uri)
+    # async def client():
+    return AsyncIOMotorClient(uri, io_loop=loop)
+    # yield  client()
 
 
-try:
-    from influxdb import InfluxDBClient
-except:
-    pass
 
-    
 ASCENDING = pymongo.ASCENDING
 DESCENDING = pymongo.DESCENDING
 QA_util_sql_mongo_sort_ASCENDING = pymongo.ASCENDING
